@@ -3,7 +3,6 @@ package com.bikkadit.electoronic.store.payload;
 import com.bikkadit.electoronic.store.validator.ImageNameValid;
 import lombok.*;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;

@@ -1,6 +1,5 @@
 package com.bikkadit.electoronic.store.exception;
 
-import com.bikkadit.electoronic.store.constanst.AppConstants;
 import com.bikkadit.electoronic.store.payload.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

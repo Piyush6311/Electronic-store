@@ -14,11 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 @Slf4j
@@ -30,6 +34,8 @@ public class UserServiceImpl implements UserServiceI {
     @Autowired
     private ModelMapper modelMapper;
 
+    private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     @Override
     public UserDto createUser(UserDto userDto) {
         // If We Use String as primary key then we can generate key Like these
@@ -37,6 +43,8 @@ public class UserServiceImpl implements UserServiceI {
         String str = UUID.randomUUID().toString();
         userDto.setUserId(str);
         User user = this.modelMapper.map(userDto, User.class);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        user.setRoles(Arrays.asList("USER"));
         this.userRepository.save(user);
         UserDto userDto1 = this.modelMapper.map(user, UserDto.class);
         log.info("Completed the Dao call for create the user ");
@@ -45,9 +53,9 @@ public class UserServiceImpl implements UserServiceI {
     }
 
     @Override
-    public UserDto updateUser(UserDto userDto, String id) {
+    public UserDto updateUser(UserDto userDto, String str) {
         log.info("Entering the Dao call for update the user with userId :{}",id);
-        User user = this.userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException(AppConstants.NOT_FOUND + id));
+        User user = this.userRepository.findById(String.valueOf(id)).orElseThrow(()-> new ResourceNotFoundException(AppConstants.NOT_FOUND + id));
         user.setAbout(userDto.getAbout());
         user.setName(userDto.getName());
         user.setGender(userDto.getGender());

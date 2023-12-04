@@ -1,7 +1,6 @@
 package com.bikkadit.electoronic.store.controller;
 
 
-import com.bikkadit.electoronic.store.model.User;
 import com.bikkadit.electoronic.store.payload.ApiResponse;
 import com.bikkadit.electoronic.store.payload.PageableResponse;
 import com.bikkadit.electoronic.store.payload.UserDto;
@@ -10,14 +9,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 @Slf4j
 public class UserController {
 
@@ -26,7 +24,7 @@ public class UserController {
 
     @PostMapping("/")
     public ResponseEntity<UserDto> saveUser(@Valid @RequestBody UserDto user) {
-        log.info("Enter the  request for Save the User : {}",user);
+        log.info("Enter the  request for Save the User : {}", user);
         UserDto user1 = this.userServiceI.createUser(user);
         log.info("Completed the request for Save the User : {}",user);
         return new ResponseEntity<UserDto>(user1, HttpStatus.CREATED);

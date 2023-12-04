@@ -1,6 +1,5 @@
 package com.bikkadit.electoronic.store.service;
 
-import com.bikkadit.electoronic.store.model.User;
 import com.bikkadit.electoronic.store.payload.PageableResponse;
 import com.bikkadit.electoronic.store.payload.UserDto;
 
@@ -10,7 +9,7 @@ public interface UserServiceI {
 
              UserDto createUser(UserDto userDto);
 
-             UserDto updateUser(UserDto userDto, String id);
+             UserDto updateUser(UserDto userDto, String str);
 
              void deleteUser(String id);
 

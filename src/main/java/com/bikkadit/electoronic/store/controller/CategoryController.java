@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpStatus.OK;
@@ -28,9 +26,6 @@ public class CategoryController {
     //create
     @PostMapping("/")
     public ResponseEntity<CategoryDto> createCatagory(@RequestBody CategoryDto categoryDto){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userName = authentication.getName();
-
         CategoryDto categoryDto1 = categoryService.create(categoryDto);
         return new ResponseEntity<>(categoryDto1, HttpStatus.CREATED);
     }

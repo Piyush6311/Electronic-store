@@ -14,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +32,7 @@ public class UserServiceImpl implements UserServiceI {
     @Autowired
     private ModelMapper modelMapper;
 
-    private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
 
     @Override
     public UserDto createUser(UserDto userDto) {
@@ -43,7 +41,7 @@ public class UserServiceImpl implements UserServiceI {
         String str = UUID.randomUUID().toString();
         userDto.setUserId(str);
         User user = this.modelMapper.map(userDto, User.class);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
 //        user.setRoles(Arrays.asList("USER"));
         this.userRepository.save(user);
         UserDto userDto1 = this.modelMapper.map(user, UserDto.class);
